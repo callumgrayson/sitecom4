@@ -1,0 +1,47 @@
+{
+    "userPoolName": "sitecom4",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "sitecom4_sns-role",
+    "roleExternalId": "sitecom4_role_external_id",
+    "policyName": "sitecom4-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": true,
+    "passwordPolicyMinLength": "6",
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Numbers"
+    ],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientName": "sitecom4_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "sitecom4_totp_lambda_role",
+    "mfaLambdaLogPolicy": "sitecom4_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "sitecom4_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "sitecom4_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "sitecom4_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "sitecom4_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "sitecom4_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "useDefault": "manual",
+    "authSelections": "userPoolOnly",
+    "resourceName": "sitecom4",
+    "unAuthRoleName": "sitecom4-20181010010923-unauthRole",
+    "authRoleName": "sitecom4-20181010010923-authRole",
+    "unAuthRoleArn": "arn:aws:iam::694018876172:role/sitecom4-20181010010923-unauthRole",
+    "authRoleArn": "arn:aws:iam::694018876172:role/sitecom4-20181010010923-authRole"
+}

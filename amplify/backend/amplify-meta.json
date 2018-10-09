@@ -1,0 +1,54 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "sitecom4-20181010010923-authRole",
+			"UnauthRoleArn": "arn:aws:iam::694018876172:role/sitecom4-20181010010923-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::694018876172:role/sitecom4-20181010010923-authRole",
+			"Region": "ap-southeast-1",
+			"DeploymentBucketName": "sitecom4-20181010010923-deployment",
+			"UnauthRoleName": "sitecom4-20181010010923-unauthRole",
+			"StackName": "sitecom4-20181010010923",
+			"StackId": "arn:aws:cloudformation:ap-southeast-1:694018876172:stack/sitecom4-20181010010923/11b0b4b0-cbe6-11e8-83ce-500c336f38f2"
+		}
+	},
+	"auth": {
+		"sitecom4": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/sitecom4-20181010010923-deployment/amplify-cfn-templates/auth/sitecom4-cloudformation-template.yml",
+				"logicalId": "authsitecom4"
+			},
+			"lastPushTimeStamp": "2018-10-09T17:50:19.316Z",
+			"output": {
+				"AppClientSecret": "123gba3mc0b36rvfng85t6utk4m0ps8dif6pgekfl0ohkm24v56j",
+				"UserPoolId": "ap-southeast-1_bYFCFIyub",
+				"AppClientIDWeb": "6u09m071jtbkk6gqbknq4emcof",
+				"AppClientID": "18dvdd3oeiqfh2rrf91358ir3r",
+				"UserPoolName": "sitecom4"
+			},
+			"lastPushDirHash": "316c+WGOVxzkAvEWf6gUuzvtsyA="
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/sitecom4-20181010010923-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-10-09T17:50:19.316Z",
+			"output": {
+				"CloudFrontSecureURL": "https://d2ssqqtacm1dln.cloudfront.net",
+				"S3BucketSecureURL": "https://sitecom4.s3.amazonaws.com",
+				"WebsiteURL": "http://sitecom4.s3-website-ap-southeast-1.amazonaws.com",
+				"CloudFrontDistributionID": "E15BJUG96Q2BS9",
+				"Region": "ap-southeast-1",
+				"HostingBucketName": "sitecom4",
+				"CloudFrontDomainName": "d2ssqqtacm1dln.cloudfront.net"
+			},
+			"lastPushDirHash": "ow/CjVITwk5QqbLr20tOzaxtTDw="
+		}
+	}
+}
