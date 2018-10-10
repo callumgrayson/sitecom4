@@ -28,8 +28,23 @@ const styles = (theme) => ({
 });
 
 class CompareYourself extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authId: '',
+    }
+
+    this.handleAuthIn = this.handleAuthIn.bind(this);
+  }
+
+  handleAuthIn(idIn) {
+    this.setState({authId: idIn});
+  }
+
   render() {
-    const {classes, auth} = this.props;
+    const {classes} = this.props;
+    const authId = this.state.authId;
 
     return (
       <div className={classes.bigContainerCY}>
@@ -44,8 +59,8 @@ class CompareYourself extends Component {
             src="https://image.freepik.com/free-vector/colorful-people-doing-different-actions_52683-676.jpg" 
             alt="compare-yourself" 
             width="100%" />
-          <CompareYourselfSet auth={auth} />
-          <CompareYourselfGet auth={auth} />
+          <CompareYourselfSet handleAuthIn={this.handleAuthIn} />
+          <CompareYourselfGet authId={authId} />
         </Paper>
       </div>
 

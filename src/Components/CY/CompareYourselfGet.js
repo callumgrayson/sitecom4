@@ -19,6 +19,10 @@ const styles = (theme) => ({
     paddingBottom: 20,
     minHeight: 60,
   },
+  buttonBoxSeeAll: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   tableRender: {
     width: '100%',
   },
@@ -33,6 +37,10 @@ const styles = (theme) => ({
     minWidth: 100,
     maxWidth: 500,
   },
+  captionBox: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  }
 });
 
 class MakeTableRow extends Component {
@@ -47,19 +55,24 @@ class MakeTableRow extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { authId, id, classes } = this.props;
     return (
       <TableRow>
-        <TableCell numeric>{this.props.age}</TableCell>
+        <TableCell numeric>{this.props.mobile}</TableCell>
         <TableCell numeric>{this.props.height}</TableCell>
-        <TableCell numeric>{this.props.income}</TableCell>
+        <TableCell numeric>{this.props.shoe}</TableCell>
         <TableCell className={classes.deleteBox}>
-          <IconButton
-            color='primary'
-            onClick={this.deleteRow}
-          >
-            <Delete />
-          </IconButton>
+          {
+            ( authId === id ) && (
+              <IconButton
+                color='primary'
+                onClick={this.deleteRow}
+              >
+                <Delete />
+              </IconButton>
+            )
+          }
+          
         </TableCell>
       </TableRow>
     );
@@ -67,7 +80,7 @@ class MakeTableRow extends Component {
 }
 
 function RenderToTable(props) {
-  const { data, classes } = props;
+  const { authId, data, classes } = props;
   if (data.length) {
     return (
       <div className={classes.tableBox}>
@@ -76,9 +89,9 @@ function RenderToTable(props) {
           padding='checkbox'>
           <TableHead>
             <TableRow>
-              <TableCell numeric>Age (years)</TableCell>
-              <TableCell numeric>Height (in)</TableCell>
-              <TableCell numeric>Income ($/mth)</TableCell>
+              <TableCell numeric>Mobile ($)</TableCell>
+              <TableCell numeric>Height (cm)</TableCell>
+              <TableCell numeric>Shoe Count (pairs)</TableCell>
               <TableCell numeric></TableCell>
             </TableRow>
           </TableHead>
@@ -87,11 +100,12 @@ function RenderToTable(props) {
               <MakeTableRow
                 key={row.userId}
                 id={row.userId}
-                age={row.age}
+                mobile={row.mobile}
                 height={row.height}
-                income={row.income}
+                shoe={row.shoe}
                 onDelete={props.handleDelete}
-                classes={props.classes}
+                classes={classes}
+                authId={authId}
               />
               ))}
           </TableBody>
@@ -100,8 +114,8 @@ function RenderToTable(props) {
     );
   } else {
     return (
-      <div>
-        <Typography align='left'>
+      <div className={classes.captionBox} >
+        <Typography>
           Fetch to see all stored data...
         </Typography>
       </div>
@@ -132,14 +146,14 @@ export default withStyles(styles)(
         }
       })
         .then(res => {
-          // console.log(res.data);
-          const persons = res.data.map(person => ({
+          console.log(res.data);
+          const persons = res.data.map(person => ({         
             userId: person.userId,
-            age: person.age,
+            mobile: person.mobile,
             height: person.height,
-            income: person.income
+            shoe: person.shoe,
           }));
-          // console.log(persons);
+          console.log({persons});
           this.setState({ persons });
         });
     }
@@ -161,23 +175,28 @@ export default withStyles(styles)(
 
     render() {
       const { persons } = this.state;
-      const { classes } = this.props;
+      const { classes, authId } = this.props;
       return (
         <div className={classes.cyGet}>
-          <Button
-            className={classes.seeAll}
-            type='submit'
-            variant='raised'
-            color='secondary'
-            onClick={this.handleSearch}
-            size='small'>
-            See All Data
-          </Button>
+          <div className={classes.buttonBoxSeeAll} >
+            <Button
+              className={classes.seeAll}
+              type='submit'
+              variant='contained'
+              color='default'
+              onClick={this.handleSearch}
+              size='small'>
+              See All Data
+            </Button>
+          </div>
+
           <RenderToTable
             className={classes.tableRender}
             data={persons}
             classes={classes}
-            handleDelete={this.handleDelete}/>
+            handleDelete={this.handleDelete}
+            authId={authId}
+          />
         </div>
       );
     }
