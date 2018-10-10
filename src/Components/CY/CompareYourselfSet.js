@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Auth } from 'aws-amplify';
 import axios from 'axios';
 import {
   TextField,
@@ -40,12 +41,23 @@ class CompareYourselfSet extends Component {
   state = {
     toPost: {
       userId: '',
+      timestamp: '',
       age: '',
       height: '',
       income: '',
     },
     posted: {},
   };
+
+  componentDidMount() {
+    Auth.currentAuthenticatedUser()
+        .then(user => {
+          console.log(user.pool.clientId);
+          const clientId = user.pool.clientId;
+          this.setState({toPost: {userId: clientId}});
+        })
+        .catch(err => console.log(err));
+  }
 
   handleChange = ({ target: { name, value } }) => {
 
@@ -59,12 +71,12 @@ class CompareYourselfSet extends Component {
 
   handleCreate = e => {
     e.preventDefault();
-    const { age, height, income } = this.state.toPost;
-    const userId = 'user_' + Date.now();
-
+    const { age, height, income, userId } = this.state.toPost;
+    const timestamp = Date.now();
+    console.log(`handleCreate: ahiut: ${age} ${height} ${income} ${userId} ${timestamp}`);
 
     axios.post('https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself',
-    { userId, age, height, income },
+    { userId, age, height, income, timestamp },
     {
       headers: {
         'Content-Type': 'application/json',
@@ -72,6 +84,7 @@ class CompareYourselfSet extends Component {
     })
       .then((result) => {
         if (result) {
+          console.log("Response data: " + result.data);
           this.setState({
             posted: {
               userId: userId,

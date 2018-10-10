@@ -171,6 +171,7 @@ export default withStyles(styles)(
               <br/>
 
               <Typography
+                variant='h4'
                 align='center'
                 gutterBottom>
                 {this.state.count}
