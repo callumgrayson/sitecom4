@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -23,6 +23,15 @@ const styles = {
     marginRight: 20,
   },
 };
+
+function typographyV1Theme() {
+  return createMuiTheme({
+    typography: {
+      suppressDeprecationWarnings: true,
+      useNextVariants: false,
+    },
+  });
+}
 
 class SwipeableTemporaryDrawer extends React.Component {
   state = {
@@ -59,34 +68,35 @@ class SwipeableTemporaryDrawer extends React.Component {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     return (
-      <div>
-        <Toolbar className={classes.menuButton}>
-          <IconButton              
-            color="primary" 
-            aria-label="Menu" 
-            onClick={this.toggleDrawer('left', true)}>
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-        
-        <SwipeableDrawer 
-          open={this.state.left}
-          onClose={this.toggleDrawer('left', false)}
-          onOpen={this.toggleDrawer('left', true)}
-          disableBackdropTransition={!iOS} 
-          disableDiscovery={iOS} 
-        >
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
+      <MuiThemeProvider theme={typographyV1Theme}>
+        <div className={classes.stDrawer}>
+          <Toolbar className={classes.menuButton}>
+            <IconButton              
+              color="primary" 
+              aria-label="Menu" 
+              onClick={this.toggleDrawer('left', true)}>
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+          
+          <SwipeableDrawer 
+            open={this.state.left}
+            onClose={this.toggleDrawer('left', false)}
+            onOpen={this.toggleDrawer('left', true)}
+            disableBackdropTransition={!iOS} 
+            disableDiscovery={iOS} 
           >
-            {sideList}
-          </div>
-        </SwipeableDrawer>
-        
-      </div>
+            <div
+              tabIndex={0}
+              role="button"
+              onClick={this.toggleDrawer('left', false)}
+              onKeyDown={this.toggleDrawer('left', false)}
+            >
+              {sideList}
+            </div>
+          </SwipeableDrawer>
+        </div>  
+      </MuiThemeProvider>
     );
   }
 }

@@ -91,7 +91,7 @@ export const ProtectedItems = (props) => (
             <ListItemIcon>
               <StarIcon />
             </ListItemIcon>
-            <ListItemText primary="Secure Content" />
+            <ListItemText primary="Compare Yourself" />
           </ListItem>
         </Link>
       ) : (
@@ -100,7 +100,7 @@ export const ProtectedItems = (props) => (
             <ListItemIcon>
               <StarIcon />
             </ListItemIcon>
-            <ListItemText primary="Secure Content" />
+            <ListItemText primary="Compare Yourself" />
           </ListItem>
         </Tooltip>
         

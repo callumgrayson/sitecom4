@@ -39,24 +39,44 @@ const styles = (theme) => ({
 
 class CompareYourselfSet extends Component {
   state = {
-    toPost: {
-      userId: '',
-      timestamp: '',
-      age: '',
+    userId: '',
+    prevPost: {
+      mobile: '',
       height: '',
-      income: '',
+      shoe: '',
     },
-    posted: {},
+    toPost: {
+      timestamp: '',
+      mobile: '',
+      height: '',
+      shoe: '',
+    },
+    posted: {
+      mobile: '',
+      height: '',
+      shoe: '',
+    },
   };
 
   componentDidMount() {
     Auth.currentAuthenticatedUser()
-        .then(user => {
-          console.log(user.pool.clientId);
-          const clientId = user.pool.clientId;
-          this.setState({toPost: {userId: clientId}});
-        })
-        .catch(err => console.log(err));
+      .then(user => {
+        console.log(user.pool.clientId);
+        const clientId = user.pool.clientId;
+        this.setState({userId: clientId});
+        return user.pool.clientId;
+      })
+      // .then(id => {
+      //   this.setState({userId: id});
+      //   axios.get().then(userData => {
+      //     // if userData exists set it to prevPost
+      //     if (userData) {
+      //       console.log("userDat Data exists so we'll setState");
+            
+      //     }         
+      //   });
+      // })
+      .catch(err => console.log(err));
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -71,32 +91,46 @@ class CompareYourselfSet extends Component {
 
   handleCreate = e => {
     e.preventDefault();
-    const { age, height, income, userId } = this.state.toPost;
+    const { mobile, height, shoe } = this.state.toPost;
+    const userId = this.state.userId;
     const timestamp = Date.now();
-    console.log(`handleCreate: ahiut: ${age} ${height} ${income} ${userId} ${timestamp}`);
+    console.log(`handleCreate: ahiut: ${mobile} ${height} ${shoe} ${userId} ${timestamp}`);
 
     axios.post('https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself',
-    { userId, age, height, income, timestamp },
+    { userId, mobile, height, shoe, timestamp },
     {
       headers: {
         'Content-Type': 'application/json',
       },
     })
       .then((result) => {
-        if (result) {
-          console.log("Response data: " + result.data);
+        console.log(result);
+        console.log(result.data.message);
+        console.log(result.config.data);
+        const resJ = JSON.parse(result.config.data); 
+        console.log(resJ);
+        console.log(resJ.userId);
+        console.log(resJ.height);
+        console.log(resJ.mobile);
+        console.log(resJ.shoe);
+        if (result.data.message === "Post Successful") {
+          console.log("Inside IF ");
+          const respU = resJ.userId;
+          const respM = resJ.mobile;
+          const respH = resJ.height;
+          const respS = resJ.shoe;
           this.setState({
             posted: {
-              userId: userId,
-              age: age,
-              height: height,
-              income: income,
+              userId: respU,
+              mobile: respM,
+              height: respH,
+              shoe: respS,
             },
             toPost: {
               userId: '',
-              age: '',
+              mobile: '',
               height: '',
-              income: '',
+              shoe: '',
             },
           });
         }
@@ -105,32 +139,32 @@ class CompareYourselfSet extends Component {
   }
 
   render() {
-    const { age, height, income } = this.state.toPost;
+    const { mobile, height, shoe } = this.state.toPost;
     const { classes } = this.props;
     return (
       <form className={classes.form} onSubmit={this.handleCreate}>
         <div className={classes.subform}>
           <div className={classes.fields}>
             <TextField
-              name='age'
-              label='Age'
-              value={age}
-              onChange={this.handleChange}
-              margin='normal'
-              className={classes.field}
-            />
-            <TextField
               name='height'
-              label='Height'
+              label='Height (cm)'
               value={height}
               onChange={this.handleChange}
               margin='normal'
               className={classes.field}
             />
             <TextField
-              name='income'
-              label='Income'
-              value={income}
+              name='mobile'
+              label='Mobile Value ($)'
+              value={mobile}
+              onChange={this.handleChange}
+              margin='normal'
+              className={classes.field}
+            />
+            <TextField
+              name='shoe'
+              label='Shoe Count (pairs)'
+              value={shoe}
               onChange={this.handleChange}
               margin='normal'
               className={classes.field}
