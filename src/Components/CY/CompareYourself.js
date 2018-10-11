@@ -173,15 +173,20 @@ class CompareYourself extends Component {
           </Typography>
           
           <img  src="https://image.freepik.com/free-vector/colorful-people-doing-different-actions_52683-676.jpg" 
-                alt="compare-yourself" 
-                width="100%" />
+                alt="compare-yourself" />
 
-          <CompareYourselfSingle  handleEdit={this.handleEdit}
-                                  userData={userData} />
-
-          <CompareYourselfInputs  handleChange={this.handleChange}
-                                  handleSubmit={this.handleSubmit}
-                                  toPost={toPost} />
+          {this.firstRender ? (
+                <div className={classes.loadingSingle} >Loading...</div>
+          ) : (
+                this.state.showInputs ? (
+                  <CompareYourselfInputs  handleChange={this.handleChange}
+                                      handleSubmit={this.handleSubmit}
+                                      toPost={toPost} />
+                ) : (
+                  <CompareYourselfSingle  handleEdit={this.handleEdit}
+                                      userData={userData} />
+                )
+          )}
 
           <CompareYourselfAll userId={userId}
                               personsData={personsData}
