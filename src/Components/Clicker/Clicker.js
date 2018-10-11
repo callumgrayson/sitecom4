@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -50,6 +51,8 @@ const styles = (theme) => ({
     height: '40vh',
     overflow: 'hidden',
   },
+  countStyle: {
+  },
   imageBox: {
     display: 'flex',
     width: '100%',
@@ -71,7 +74,7 @@ function TimeStamps(props) {
         <Typography
           align='center'
           gutterBottom >
-          Timestamps (milliseconds elapsed since January 1, 1970 00:00:00 UTC)
+          Timestamps
         </Typography>
         {
           times.map((t) => {
@@ -79,13 +82,13 @@ function TimeStamps(props) {
             const count = t.count;
             const date1 = new Date(t.timestamp);
             const date2 = date1.toString();
-            const date3 = `${count} : ${t.timestamp}ms or ${date2} from ${ip}`;
+            const date3 = `${count} : ${date2} from ${ip}`;
 
             return (
               <ListItem
                 key={id}
                 className={classes.listItem1}>
-                <ListItemText primary={date3}/>
+                <ListItemText primary={date3} />
               </ListItem>
             )
           })
@@ -192,12 +195,12 @@ export default withStyles(styles)(
               </List>
             </div>
             <div className={classes.big2ButtonBox}>
-              <Button
-                onClick={this.handleClick}
-                color="primary"
-                variant="contained"
-              >
-                +1
+              <Button 
+                variant="fab" 
+                color="primary" 
+                aria-label="Add" 
+                onClick={this.handleClick}>
+                <AddIcon />
               </Button>
             </div>
           </Paper>

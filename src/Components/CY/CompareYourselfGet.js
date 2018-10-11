@@ -40,6 +40,9 @@ const styles = (theme) => ({
   captionBox: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  rowHighlight: {
+    background: '#fccccf',
   }
 });
 
@@ -56,8 +59,10 @@ class MakeTableRow extends Component {
 
   render() {
     const { authId, id, classes } = this.props;
+    const userRow = authId === id;
+    const userRowStyle = userRow ? classes.rowHighlight : "";
     return (
-      <TableRow>
+      <TableRow className={userRowStyle} >
         <TableCell numeric>{this.props.mobile}</TableCell>
         <TableCell numeric>{this.props.height}</TableCell>
         <TableCell numeric>{this.props.shoe}</TableCell>

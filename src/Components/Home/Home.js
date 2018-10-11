@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Clicker from '../Clicker/Clicker';
 import { withStyles } from '@material-ui/core/styles';
-import { Divider } from '@material-ui/core';
 
 const styles = (theme) => ({
   home: {
@@ -16,12 +15,18 @@ const styles = (theme) => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
+    marginTop: 30,
+    marginBottom: 50,
   },
   imageHome: {
     width: '100%',
     height: '100%',
     maxWidth: 700,
     heigth: 'auto',
+  },
+  clickerBox: {
+    background: '#fccccf',
+    paddingBottom: 30,
   },
 });
 
@@ -39,8 +44,9 @@ class Home extends Component {
             alt="compare-yourself" 
           />
         </div>
-        <Divider />
-        <Clicker />
+        <div className={classes.clickerBox}>
+          <Clicker />
+        </div>
       </div>
     );
   }

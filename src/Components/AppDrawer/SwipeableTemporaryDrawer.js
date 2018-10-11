@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
 import { PublicItems, ProtectedItems } from './tileData';
 
+
 const styles = {
   list: {
     width: 250,
@@ -23,6 +24,8 @@ const styles = {
     marginRight: 20,
   },
 };
+
+
 
 function typographyV1Theme() {
   return createMuiTheme({
@@ -51,6 +54,7 @@ class SwipeableTemporaryDrawer extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
+          
           <PublicItems 
             afterLogin={afterLogin}
             handleLogin={handleLogin}

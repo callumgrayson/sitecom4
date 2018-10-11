@@ -8,7 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { SvgIcon } from '@material-ui/core';
 import { AccountCircle, Build, Clear, Link as LinkIcon, Notes } from '@material-ui/icons';
 
-const AuthButton = withRouter(
+const AuthOutButton = withRouter(
   ({ history, handleLogout }) => (
     <ListItem button 
       onClick={() => {
@@ -23,9 +23,25 @@ const AuthButton = withRouter(
   )
 ); 
 
+const AuthInButton = withRouter(
+  ({ history, handleLogin }) => (
+    <ListItem button 
+      onClick={() => {
+        handleLogin(() => history.push("/s"));
+      }}
+    >
+      <ListItemIcon>
+        <AccountCircle />
+      </ListItemIcon>
+      <ListItemText primary="Login"/>
+    </ListItem>
+  )
+);
+
 export function PublicItems(props) {
   return (
     <div>
+
       <Link to="/" style={{textDecoration: 'none'}} >
         <ListItem >
           <ListItemIcon>
@@ -68,12 +84,7 @@ export function PublicItems(props) {
         !props.afterLogin && (
           <div>
             <Divider />
-            <ListItem button onClick={props.handleLogin}>
-              <ListItemIcon>
-                <AccountCircle />
-              </ListItemIcon>
-              <ListItemText primary="Login"/>
-            </ListItem>
+            <AuthInButton handleLogin={props.handleLogin} />
           </div>
         )
       }
@@ -110,7 +121,7 @@ export const ProtectedItems = (props) => (
     {
       props.afterLogin && (
         <Link to="/" style={{textDecoration: 'none'}} >
-          <AuthButton handleLogout={props.handleLogout} />
+          <AuthOutButton handleLogout={props.handleLogout} />
         </Link>
       )
     }
