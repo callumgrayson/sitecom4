@@ -120,7 +120,6 @@ class CompareYourselfSet extends Component {
       },
     };
 
-    this.getCurrentStateData = this.getCurrentStateData.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
     this.handleShowInputs = this.handleShowInputs.bind(this);
@@ -131,11 +130,6 @@ class CompareYourselfSet extends Component {
     this.setState({showInputs: true});
   }
 
-  getCurrentStateData(e) {
-    e.preventDefault();
-    const strState = this.state;
-    const strState2 = JSON.stringify(strState);
-  }
 
   componentDidMount() {
     Auth.currentAuthenticatedUser()

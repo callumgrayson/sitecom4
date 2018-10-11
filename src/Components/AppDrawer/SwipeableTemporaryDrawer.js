@@ -49,7 +49,7 @@ class SwipeableTemporaryDrawer extends React.Component {
 
   render() {
     const { classes, afterLogin } = this.props;
-    const { handleLogin, handleLogout, getCurrent } = this.props;
+    const { handleLogin, handleLogout, getCurrent, clearLoggingIn } = this.props;
 
     const sideList = (
       <div className={classes.list}>
@@ -58,7 +58,8 @@ class SwipeableTemporaryDrawer extends React.Component {
           <PublicItems 
             afterLogin={afterLogin}
             handleLogin={handleLogin}
-            getCurrent={getCurrent} />
+            getCurrent={getCurrent}
+            clearLoggingIn={clearLoggingIn} />
         </List>
         <Divider />
         <List>

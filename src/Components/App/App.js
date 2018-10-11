@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SecureC from '../SecurePart/SecureC';
+import AuthComponent from '../AuthComponent/AuthComponent';
 import Amplify, { Auth } from 'aws-amplify';
-import { Authenticator } from 'aws-amplify-react';
 import Home from '../Home/Home';
 import Tools from '../Tools/Tools';
 import Links from '../Links/Links';
@@ -27,6 +27,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
+    this.clearLoggingIn = this.clearLoggingIn.bind(this);
   }
   
   getCurrent() {
@@ -63,6 +64,11 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+  clearLoggingIn() {
+    console.log("clearLoggingIn: settin loggingIn to false");
+    this.setState(() => ({loggingIn: false}));
+  }
+
   render() {
     return (
       <Router>
@@ -71,11 +77,14 @@ class App extends Component {
             afterLogin={this.state.afterLogin}
             handleLogin={this.handleLogin} 
             handleLogout={this.handleLogout}
-            getCurrent={this.getCurrent} 
+            getCurrent={this.getCurrent}
+            clearLoggingIn={this.clearLoggingIn} 
           />
 
           {this.state.loggingIn && (
-            <Authenticator onStateChange={this.handleStateChange} />
+            <AuthComponent 
+              clearLoggingIn={this.clearLoggingIn}
+              handleStateChange={this.handleStateChange} />
           )}
 
           {!this.state.loggingIn && (

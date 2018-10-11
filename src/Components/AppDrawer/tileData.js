@@ -23,19 +23,15 @@ const AuthOutButton = withRouter(
   )
 ); 
 
-const AuthInButton = withRouter(
-  ({ history, handleLogin }) => (
+const AuthInButton = ({ handleLogin }) => (
     <ListItem button 
-      onClick={() => {
-        handleLogin(() => history.push("/s"));
-      }}
+      onClick={handleLogin}
     >
       <ListItemIcon>
         <AccountCircle />
       </ListItemIcon>
       <ListItemText primary="Login"/>
     </ListItem>
-  )
 );
 
 export function PublicItems(props) {
@@ -43,7 +39,7 @@ export function PublicItems(props) {
     <div>
 
       <Link to="/" style={{textDecoration: 'none'}} >
-        <ListItem >
+        <ListItem button onClick={props.clearLogginIn} >
           <ListItemIcon>
             <SvgIcon>
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
