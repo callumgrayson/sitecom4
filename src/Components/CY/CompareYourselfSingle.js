@@ -64,27 +64,6 @@ const styles = (theme) => ({
     position: 'relative',
     right: 5,
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    justifyContent: 'space-around',
-    background: '#fff',
-  },
-  subform: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  fields: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  field: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
   buttonBoxCY: {
     display: 'flex',
     justifyContent: 'center',
@@ -94,186 +73,56 @@ const styles = (theme) => ({
   },
 })
 
+function CompareYourselfSingle(props) {
+  const { classes, handleEdit, userData } = props;
+  const { mobile, height, shoe } = userData;
 
-class CompareYourselfSet extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-  
-  render() {
-
-    const { classes, handleEdit } = this.props;
-
-    return (
-      <div className={classes.userBox}>
-        {
-          (!showInputs) ? (
-            <div className={classes.savedBox} >
-              <div className={classes.titleBox} >
-                <Typography align='center' variant="h6" className={classes.title}>
-                  Your Saved Data
-                </Typography>
-              </div>
-
-              <div className={classes.listBox} >
-                <List className={classes.listPrev} >
-                  <ListItem className={classes.listPrevItem} >
-                    <ListItemText
-                      primary={prevMobile}
-                      secondary={'Mobile Value ($)'}
-                    />
-                  </ListItem>
-                  <ListItem className={classes.listPrevItem} >
-                    <ListItemText
-                      primary={prevHeight}
-                      secondary={'Height (cm)'}
-                    />
-                  </ListItem>
-                  <ListItem className={classes.listPrevItem} >
-                    <ListItemText
-                      primary={prevShoe}
-                      secondary={'Shoe Count (pairs)'}
-                    />
-                  </ListItem>
-                </List>
-                
-              </div>
-              <div className={classes.buttonBox} >
-                <IconButton 
-                  size='small' 
-                  color="default" 
-                  aria-label="Edit" 
-                  className={classes.editButton}
-                  onClick={this.handleShowInputs}>
-                  <Icon>edit_icon</Icon>
-                </IconButton>
-              </div>
-            </div>
-          ) : (
-            <form className={classes.form} onSubmit={this.handleCreate}>
-              <div className={classes.subform}>
-                <div className={classes.fields}>
-                  <TextField
-                    name='mobile'
-                    label='Mobile Value ($)'
-                    value={mobile}
-                    onChange={this.handleChange}
-                    margin='normal'
-                    className={classes.field}
-                  />
-                  
-                  <TextField
-                    name='height'
-                    label='Height (cm)'
-                    value={height}
-                    onChange={this.handleChange}
-                    margin='normal'
-                    className={classes.field}
-                  />
-                  
-                  <TextField
-                    name='shoe'
-                    label='Shoe Count (pairs)'
-                    value={shoe}
-                    onChange={this.handleChange}
-                    margin='normal'
-                    className={classes.field}
-                  />
-                </div>
-                <div className={classes.buttonBoxCY} >
-                  <Button
-                    type='submit'
-                    color='primary'
-                    variant='contained' >
-                    Submit
-                  </Button>
-                </div>
-              </div>
-            </form>
-          )
-        }
-
+  return (
+    <div className={classes.userBox}>
+      <div className={classes.savedBox} >
         
+        <div className={classes.titleBox} >
+          <Typography align='center' variant="h6" className={classes.title}>
+            Your Saved Data
+          </Typography>
+        </div>
+
+        <div className={classes.listBox} >
+          <List className={classes.listPrev} >
+            <ListItem className={classes.listPrevItem} >
+              <ListItemText
+                primary={mobile}
+                secondary={'Mobile Value ($)'}
+              />
+            </ListItem>
+            <ListItem className={classes.listPrevItem} >
+              <ListItemText
+                primary={height}
+                secondary={'Height (cm)'}
+              />
+            </ListItem>
+            <ListItem className={classes.listPrevItem} >
+              <ListItemText
+                primary={shoe}
+                secondary={'Shoe Count (pairs)'}
+              />
+            </ListItem>
+          </List> 
+        </div>
+
+        <div className={classes.buttonBox} >
+          <IconButton 
+            size='small' 
+            color="default" 
+            aria-label="Edit" 
+            className={classes.editButton}
+            onClick={handleEdit}>
+            <Icon>edit_icon</Icon>
+          </IconButton>
+        </div>
       </div>
-    );
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  handleShowInputs(e) {
-    e.preventDefault();
-    this.setState({showInputs: true});
-  }
-
-
-  
-
-  handleChange = ({ target: { name, value } }) => {
-
-    this.setState(function(state) {
-      return {
-        toPost: {...state.toPost, [name]: value},
-      }
-    });
-  }
-
-
-  handleCreate = e => {
-    e.preventDefault();
-    const { mobile, height, shoe } = this.state.toPost;
-    const userId = this.state.userId;
-    const timestamp = Date.now();
-
-    axios.post('https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself',
-    { userId, mobile, height, shoe, timestamp },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((result) => {
-
-        const resJ = JSON.parse(result.config.data); 
-
-        if (result.data.message === "Post Successful") {
-
-          const respU = resJ.userId;
-          const respM = resJ.mobile;
-          const respH = resJ.height;
-          const respS = resJ.shoe;
-          this.setState({
-            posted: {
-              userId: respU,
-              mobile: respM,
-              height: respH,
-              shoe: respS,
-            },
-            toPost: {
-              userId: '',
-              mobile: '',
-              height: '',
-              shoe: '',
-            },
-          });
-        }
-      }
-    );
-  }
-
-  
+    </div>
+  );
 }
 
-export default withStyles(styles)(CompareYourselfSet);
+export default withStyles(styles)(CompareYourselfSingle);

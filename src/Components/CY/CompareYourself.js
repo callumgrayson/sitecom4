@@ -180,11 +180,11 @@ class CompareYourself extends Component {
           ) : (
                 this.state.showInputs ? (
                   <CompareYourselfInputs  handleChange={this.handleChange}
-                                      handleSubmit={this.handleSubmit}
-                                      toPost={toPost} />
+                                          handleSubmit={this.handleSubmit}
+                                          userDataToPost={userDataToPost} />
                 ) : (
                   <CompareYourselfSingle  handleEdit={this.handleEdit}
-                                      userData={userData} />
+                                          userData={userData} />
                 )
           )}
 
