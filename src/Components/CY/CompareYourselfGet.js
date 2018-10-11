@@ -151,26 +151,25 @@ export default withStyles(styles)(
         }
       })
         .then(res => {
-          console.log(res.data);
+
           const persons = res.data.map(person => ({         
             userId: person.userId,
             mobile: person.mobile,
             height: person.height,
             shoe: person.shoe,
           }));
-          console.log({persons});
           this.setState({ persons });
         });
     }
 
     handleDelete(rowId) {
-      console.log("The rowId is: " + rowId);
+
       const deleteId = { params: { id: rowId } };
-      console.log("You are about to delete userId: " + rowId);
+
       axios.delete(`https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself`, deleteId )
       .then(resp => {
         const idToFilter = resp.data.id;
-        console.log(idToFilter);
+
         const persons = this.state.persons.filter(person =>
           person.userId !== idToFilter
         );

@@ -133,10 +133,7 @@ export default withStyles(styles)(
       const objSend = {timestamp: timestamp1};
       const header = {'content-type': 'application/json'};
       axios.post(`https://nxe6l78bx2.execute-api.ap-southeast-1.amazonaws.com/dev/clinc`, objSend, header).then(res => {
-        console.log(res);
-        console.log(res.data);
-        console.log(res.data.newClickCount);
-        console.log(res.data.sourceIp);
+
         if (res.data.newClickCount > 0) {
           const tsObj = {
             count: this.state.count + 1,

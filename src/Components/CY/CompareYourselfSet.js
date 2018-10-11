@@ -135,7 +135,6 @@ class CompareYourselfSet extends Component {
     e.preventDefault();
     const strState = this.state;
     const strState2 = JSON.stringify(strState);
-    console.log(strState2);
   }
 
   componentDidMount() {
@@ -147,14 +146,13 @@ class CompareYourselfSet extends Component {
       })
       .then(id => {
         this.setState({userId: id});
-        console.log("The id that will be sent as params: ");
-        console.log(id);
+
         return axios.get(`https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself/single`, {
           params: {
             userId: id
           }
         }).then(resp1 => {
-          console.log(resp1.data[0]);
+
           const { mobile, height, shoe } = resp1.data[0];
           this.setState({prevPost: { mobile, height, shoe }});
           this.props.handleAuthIn(id);
@@ -178,7 +176,6 @@ class CompareYourselfSet extends Component {
     const { mobile, height, shoe } = this.state.toPost;
     const userId = this.state.userId;
     const timestamp = Date.now();
-    console.log(`handleCreate: ahiut: ${mobile} ${height} ${shoe} ${userId} ${timestamp}`);
 
     axios.post('https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself',
     { userId, mobile, height, shoe, timestamp },
@@ -188,17 +185,11 @@ class CompareYourselfSet extends Component {
       },
     })
       .then((result) => {
-        console.log(result);
-        console.log(result.data.message);
-        console.log(result.config.data);
+
         const resJ = JSON.parse(result.config.data); 
-        console.log(resJ);
-        console.log(resJ.userId);
-        console.log(resJ.height);
-        console.log(resJ.mobile);
-        console.log(resJ.shoe);
+
         if (result.data.message === "Post Successful") {
-          console.log("Inside IF ");
+
           const respU = resJ.userId;
           const respM = resJ.mobile;
           const respH = resJ.height;
