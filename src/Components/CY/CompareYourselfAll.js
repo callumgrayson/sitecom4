@@ -145,11 +145,7 @@ export default withStyles(styles)(
     handleSearch(event) {
       event.preventDefault();
 
-      axios.get('https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself/all', {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      
         .then(res => {
 
           const persons = res.data.map(person => ({         

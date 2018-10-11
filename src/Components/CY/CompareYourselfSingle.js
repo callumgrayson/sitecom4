@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Auth } from 'aws-amplify';
+
 import axios from 'axios';
 import {
   TextField,
@@ -219,29 +219,7 @@ class CompareYourselfSet extends Component {
   }
 
 
-  componentDidMount() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        const clientId = user.pool.clientId;
-        this.setState({userId: clientId});
-        return user.pool.clientId;
-      })
-      .then(id => {
-        this.setState({userId: id});
-
-        return axios.get(`https://4veilmjznk.execute-api.ap-southeast-1.amazonaws.com/dev/compare-yourself/single`, {
-          params: {
-            userId: id
-          }
-        }).then(resp1 => {
-
-          const { mobile, height, shoe } = resp1.data[0];
-          this.setState({prevPost: { mobile, height, shoe }});
-          this.props.handleAuthIn(id);
-        }).catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
-  }
+  
 
   handleChange = ({ target: { name, value } }) => {
 
