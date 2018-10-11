@@ -5,9 +5,7 @@ import CompareYourselfAll from './CompareYourselfAll';
 import ApiCY from '../../Util/Axios';
 import { Auth } from 'aws-amplify';
 import { withStyles } from '@material-ui/core/styles';
-import { Paper,
-         Typography } from '@material-ui/core';
-
+import { Paper, Typography } from '@material-ui/core';
 
 const styles = (theme) => ({
   bigContainerCY: {
@@ -66,7 +64,7 @@ class CompareYourself extends Component {
 
     .then(id => {
       ApiCY.getSingle(id)
-
+      
       .then(res => {
         const { mobile, height, shoe } = res.data[0];
         const showInputs = ( mobile || height || shoe ) ? false : true;
@@ -83,9 +81,9 @@ class CompareYourself extends Component {
   }
   
   handleChange = ({ target: { name, value } }) => {
-    this.setState((state) => {
+    this.setState(state => {
       return {
-        UserDataToPost: {...state.userDataToPost, [name]: value},
+        userDataToPost: {...state.userDataToPost, [name]: value},
       }
     });
   }
@@ -120,8 +118,12 @@ class CompareYourself extends Component {
             height: '',
             shoe: '',
           },
+          showInputs: false,
         });
       }
+    })
+    .then(() => {
+      this.handleGetAll();
     })
     .catch(err => console.log(err));
   }
@@ -130,11 +132,11 @@ class CompareYourself extends Component {
     ApiCY.getAll()
     
     .then(res => {
-      const personsData = res.data.map(person => ({         
-        userId: person.userId,
-        mobile: person.mobile,
-        height: person.height,
-        shoe: person.shoe,
+      const personsData = res.data.map(p => ({         
+        userId: p.userId,
+        mobile: p.mobile,
+        height: p.height,
+        shoe: p.shoe,
       }));
 
       this.setState({ personsData });
@@ -160,7 +162,7 @@ class CompareYourself extends Component {
   render() {
     
     const { classes } = this.props;
-    const { userId, userData, toPost, personsData } = this.state;
+    const { userId, userData, userDataToPost, personsData } = this.state;
 
     return (
       <div className={classes.bigContainerCY} >
@@ -173,7 +175,8 @@ class CompareYourself extends Component {
           </Typography>
           
           <img  src="https://image.freepik.com/free-vector/colorful-people-doing-different-actions_52683-676.jpg" 
-                alt="compare-yourself" />
+                alt="compare-yourself"
+                width="100%" />
 
           {this.firstRender ? (
                 <div className={classes.loadingSingle} >Loading...</div>

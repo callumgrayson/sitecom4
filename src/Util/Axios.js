@@ -8,12 +8,14 @@ const ApiCY = {
     return axios.get(`${apiEndpoint}/single`, 
                     { params: { userId: id }},
                     )
+                    .catch(err => console.log(err));
   },
 
   getAll() {
     return axios.get(`${apiEndpoint}/all`, 
                     { headers: { 'Content-Type': 'application/json' }},
                     )
+                    .catch(err => console.log(err));
   },
 
   postSingle({ userId, mobile, height, shoe, timestamp }) {
@@ -21,6 +23,7 @@ const ApiCY = {
                       { userId, mobile, height, shoe, timestamp },
                       { headers: { 'Content-Type': 'application/json' }},
                       )
+                      .catch(err => console.log(err));
   },
 }
 

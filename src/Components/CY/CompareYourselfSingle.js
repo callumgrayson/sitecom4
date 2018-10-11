@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-
-import axios from 'axios';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import {
-  TextField,
-  Button,
   IconButton,
   List,
   ListItem,
@@ -11,7 +8,6 @@ import {
   Typography,
   Icon
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
   userBox: {
@@ -45,6 +41,8 @@ const styles = (theme) => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    paddingRight: 40,
+    paddingLeft: 40,
   },
   listPrevItem: {
     display: 'flex',
@@ -62,7 +60,8 @@ const styles = (theme) => ({
   },
   editButton: {
     position: 'relative',
-    right: 5,
+    right: 10,
+    bottom: 20
   },
   buttonBoxCY: {
     display: 'flex',

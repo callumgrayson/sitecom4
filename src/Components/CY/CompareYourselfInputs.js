@@ -2,12 +2,6 @@ import React from 'react';
 import {
   TextField,
   Button,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  Icon
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -52,7 +46,7 @@ const styles = (theme) => ({
 })
 
 
-function CompareYourselfSet(props) {
+function CompareYourselfInputs(props) {
   const { mobile, height, shoe } = props.userDataToPost;
   const { classes, handleChange, handleSubmit } = props;
   
@@ -103,4 +97,4 @@ function CompareYourselfSet(props) {
   )
 }
 
-export default withStyles(styles)(CompareYourselfSet);
+export default withStyles(styles)(CompareYourselfInputs);

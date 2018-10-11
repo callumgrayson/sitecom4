@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Delete } from '@material-ui/icons';
 import {
@@ -42,14 +42,18 @@ const styles = (theme) => ({
   },
   rowHighlight: {
     background: '#fccccf',
+  },
+  rowRegular: {
+    background: 'inherit',
   }
 });
 
 function MakeTableRow(props) {
-  const { userId, key, classes, handleDelete } = props;
+  const { userId, rowId, classes, handleDelete } = props;
   const { mobile, height, shoe } = props;
-  const userRow = userId === key;
-  const userRowStyle = userRow ? classes.rowHighlight : "";
+  const userRow = userId === rowId;
+  const userRowStyle = userRow ? classes.rowHighlight : classes.rowRegular;
+  
   return (
     <TableRow className={userRowStyle} >
       <TableCell numeric>{mobile}</TableCell>
@@ -72,8 +76,8 @@ function MakeTableRow(props) {
 }
 
 function RenderToTable(props) {
-  const { userId, data, classes, handleDelete } = props;
-  if (data.length) {
+  const { userId, personsData, classes, handleDelete } = props;
+  if (personsData.length) {
     return (
       <div className={classes.tableBox}>
         <Table
@@ -84,13 +88,14 @@ function RenderToTable(props) {
               <TableCell numeric>Mobile ($)</TableCell>
               <TableCell numeric>Height (cm)</TableCell>
               <TableCell numeric>Shoe Count (pairs)</TableCell>
-              <TableCell numeric></TableCell>
+              <TableCell ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(row => (
+            {personsData.map(row => (
               <MakeTableRow
                 key={row.userId}
+                rowId={row.userId}
                 mobile={row.mobile}
                 height={row.height}
                 shoe={row.shoe}
@@ -115,8 +120,8 @@ function RenderToTable(props) {
 }
 
 export default withStyles(styles)(
-  function CompareYourselfAll() {
-    const { classes, userId, personsData, handleSearch, handleDelete } = this.props;
+  function CompareYourselfAll(props) {
+    const { classes, userId, personsData, handleGetAll, handleDelete } = props;
     
     return (
       <div className={classes.cyGet}>
@@ -126,7 +131,7 @@ export default withStyles(styles)(
             type='submit'
             variant='contained'
             color='default'
-            onClick={handleSearch}
+            onClick={handleGetAll}
             size='small'>
             See All Data
           </Button>
@@ -134,10 +139,10 @@ export default withStyles(styles)(
 
         <RenderToTable
           className={classes.tableRender}
-          data={personsData}
+          userId={userId}
+          personsData={personsData}
           classes={classes}
           handleDelete={handleDelete}
-          userId={userId}
         />
       </div>
     );

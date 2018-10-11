@@ -29,15 +29,6 @@ class App extends Component {
     this.handleStateChange = this.handleStateChange.bind(this);
     this.clearLoggingIn = this.clearLoggingIn.bind(this);
   }
-  
-  getCurrent() {
-    Auth.currentAuthenticatedUser()
-        .then(user => null)
-        .catch(err => console.log(err));
-    Auth.currentSession()
-        .then(session => null)
-        .catch(err => console.log(err));
-  }
 
   handleStateChange(retState) {
     if (retState === 'signedIn') {
