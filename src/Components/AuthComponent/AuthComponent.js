@@ -13,17 +13,12 @@ const styles = (theme) => ({
   buttonBox: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     paddingRight: 0,
     marginTop: 50,
   },
   authComponentBox: {
     width: '100%',
-  },
-  authButton: {
-    position: 'relative',
-    right: 30,
-    bottom: 30,
   },
 })
 

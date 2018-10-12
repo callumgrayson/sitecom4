@@ -56,7 +56,6 @@ class App extends Component {
   }
 
   clearLoggingIn() {
-    console.log("clearLoggingIn: settin loggingIn to false");
     this.setState(() => ({loggingIn: false}));
   }
 
