@@ -59,7 +59,7 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   imageMouse: {
-    width: '60%',
+    width: '30%',
     height: '100%',
     maxWidth: 700,
     heigth: 'auto',
